@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>حاسبة العمر</title>
+
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial;
+            background-color: #f2f2f2;
+            padding-top: 100px;
+        }
+
+        .box {
+            background-color: white;
+            width: 350px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>حاسبة العمر 🎂</h1>
+
+        <p>أدخل تاريخ ميلادك:</p>
+
+        <input type="date" id="birthdate">
+
+        <br>
+
+        <button onclick="calculateAge()">احسب عمري</button>
+
+        <p id="result"></p>
+
+    </div>
+
+    <script>
+        function calculateAge() {
+
+            let birth = new Date(document.getElementById("birthdate").value);
+            let today = new Date();
+
+            if (!document.getElementById("birthdate").value) {
+                document.getElementById("result").innerHTML =
+                    "⚠️ اختر تاريخ ميلادك أولاً";
+                return;
+            }
+
+            let years = today.getFullYear() - birth.getFullYear();
+            let months = today.getMonth() - birth.getMonth();
+            let days = today.getDate() - birth.getDate();
+
+            if (days < 0) {
+                months--;
+                days += new Date(
+                    today.getFullYear(),
+                    today.getMonth(),
+                    0
+                ).getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            document.getElementById("result").innerHTML =
+                "🎉 عمرك هو: " +
+                years + " سنة و " +
+                months + " شهر و " +
+                days + " يوم";
+        }
+    </script>
+
+</body>
+</html>
