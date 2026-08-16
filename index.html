@@ -85,44 +85,58 @@ nav a {
         <p id="result"></p>
 
     </div>
+<script>
+function calculateAge() {
+    let birth = new Date(document.getElementById("birthdate").value);
+    let today = new Date();
 
-    <script>
-        function calculateAge() {
+    if (!document.getElementById("birthdate").value) {
+        document.getElementById("result").innerHTML =
+            "⚠️ اختر تاريخ ميلادك أولاً";
+        return;
+    }
 
-            let birth = new Date(document.getElementById("birthdate").value);
-            let today = new Date();
+    let years = today.getFullYear() - birth.getFullYear();
+    let months = today.getMonth() - birth.getMonth();
+    let days = today.getDate() - birth.getDate();
 
-            if (!document.getElementById("birthdate").value) {
-                document.getElementById("result").innerHTML =
-                    "⚠️ اختر تاريخ ميلادك أولاً";
-                return;
-            }
+    if (days < 0) {
+        months--;
+        days += new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            0
+        ).getDate();
+    }
 
-            let years = today.getFullYear() - birth.getFullYear();
-            let months = today.getMonth() - birth.getMonth();
-            let days = today.getDate() - birth.getDate();
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
 
-            if (days < 0) {
-                months--;
-                days += new Date(
-                    today.getFullYear(),
-                    today.getMonth(),
-                    0
-                ).getDate();
-            }
+    let nextBirthday = new Date(
+        today.getFullYear(),
+        birth.getMonth(),
+        birth.getDate()
+    );
 
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
+    if (nextBirthday < today) {
+        nextBirthday.setFullYear(today.getFullYear() + 1);
+    }
 
-            document.getElementById("result").innerHTML =
-                "🎉 عمرك هو: " +
-                years + " سنة و " +
-                months + " شهر و " +
-                days + " يوم";
-        }
-    </script>
+    let daysUntilBirthday = Math.ceil(
+        (nextBirthday - today) / (1000 * 60 * 60 * 24)
+    );
+
+    document.getElementById("result").innerHTML =
+        "🎉 عمرك هو: " +
+        years + " سنة و " +
+        months + " شهر و " +
+        days + " يوم" +
+        "<br><br>🎂 عيد ميلادك القادم بعد: " +
+        daysUntilBirthday + " يوم";
+}
+</script>
 
 </body>
 </html>
