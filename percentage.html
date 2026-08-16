@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>حاسبة النسبة المئوية</title>
+</head>
+
+<body>
+    <h1>حاسبة النسبة المئوية</h1>
+
+    <p>اكتب الرقم:</p>
+    <input type="number" id="number">
+
+    <p>اكتب النسبة المئوية:</p>
+    <input type="number" id="percent">
+
+    <br><br>
+
+    <button onclick="calculatePercentage()">احسب</button>
+
+    <p id="result"></p>
+
+    <script>
+        function calculatePercentage() {
+            let number = document.getElementById("number").value;
+            let percent = document.getElementById("percent").value;
+
+            let result = number * percent / 100;
+
+            document.getElementById("result").innerHTML =
+                "النتيجة: " + result;
+        }
+    </script>
+
+</body>
+</html>
