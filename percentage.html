@@ -25,41 +25,42 @@
     <p id="result"></p>
 
     <script>
-        function calculatePercentage() {
-            let number = document.getElementById("number").value;
-            let percent = document.getElementById("percent").value;
-if (number === "" || percent === "") {
-    document.getElementById("result").innerHTML =
-        "⚠️ أدخل الرقم والنسبة أولاً";
-    return;
-}
-            let result = number * percent / 100;
-let operation = document.getElementById("operation").value
+       function calculatePercentage() {
+    let number = document.getElementById("number").value;
+    let percent = document.getElementById("percent").value;
+
+    if (number === "" || percent === "") {
+        document.getElementById("result").innerHTML =
+            "⚠️ أدخل الرقم والنسبة أولاً";
+        return;
+    }
+
+    let result = number * percent / 100;
+    let operation = document.getElementById("operation").value;
     let changeAmount = number * percent / 100;
-if (operation === "increase") {
-    result = number * (1 + percent / 100);
-} else if (operation === "decrease") {
-    result = number * (1 - percent / 100);
-}
+
+    if (operation === "increase") {
+        result = number * (1 + percent / 100);
+    } else if (operation === "decrease") {
+        result = number * (1 - percent / 100);
+    }
+
     if (operation === "normal") {
-    document.getElementById("result").innerHTML =
-        "🧮 " + percent + "% من " + number +
-        " = <strong>" + result + "</strong>";
-
-} else if (operation === "increase") {
-    document.getElementById("result").innerHTML =
-        "📈 زيادة " + number + " بنسبة " + percent + "٪<br>"
-        "➕ مقدار الزيادة: <strong>" + changeAmount + "</strong><br>" +
-        "💰 النتيجة: <strong>" + result + "</strong>";
-
-} else {
-    document.getElementById("result").innerHTML =
-        "📉 خصم " + percent + "% من " + number + "<br>" +
-        "➖ مقدار الخصم: <strong>" + changeAmount + "</strong><br>" +
-        "💰 النتيجة: <strong>" + result + "</strong>";
+        document.getElementById("result").innerHTML =
+            "🧮 " + percent + "% من " + number +
+            " = <strong>" + result + "</strong>";
+    } else if (operation === "increase") {
+        document.getElementById("result").innerHTML =
+            "📈 زيادة " + number + " بنسبة " + percent + "%<br>" +
+            "➕ مقدار الزيادة: <strong>" + changeAmount + "</strong><br>" +
+            "💰 النتيجة: <strong>" + result + "</strong>";
+    } else {
+        document.getElementById("result").innerHTML =
+            "📉 خصم " + percent + "% من " + number + "<br>" +
+            "➖ مقدار الخصم: <strong>" + changeAmount + "</strong><br>" +
+            "💰 النتيجة: <strong>" + result + "</strong>";
+    }
 }
-}
-</script>
     </script>
 
 </body>
