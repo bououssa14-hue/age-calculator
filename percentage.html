@@ -34,22 +34,29 @@ if (number === "" || percent === "") {
     return;
 }
             let result = number * percent / 100;
-let operation = document.getElementById("operation").value;
-
+let operation = document.getElementById("operation").value
+    let changeAmount = number * percent / 100;
 if (operation === "increase") {
     result = number * (1 + percent / 100);
 } else if (operation === "decrease") {
     result = number * (1 - percent / 100);
 }
-        if (operation === "normal") {
+    if (operation === "normal") {
     document.getElementById("result").innerHTML =
-        "🧮 " + percent + "% من " + number + " = <strong>" + result + "</strong>";
+        "🧮 " + percent + "% من " + number +
+        " = <strong>" + result + "</strong>";
+
 } else if (operation === "increase") {
     document.getElementById("result").innerHTML =
-        "📈 زيادة " + number + " بنسبة " + percent + "% = <strong>" + result + "</strong>";
+        "📈 زيادة " + number + " بنسبة " + percent + "%<br>" +
+        "➕ مقدار الزيادة: <strong>" + changeAmount + "</strong><br>" +
+        "💰 النتيجة: <strong>" + result + "</strong>";
+
 } else {
     document.getElementById("result").innerHTML =
-        "📉 خصم " + percent + "% من " + number + " = <strong>" + result + "</strong>";
+        "📉 خصم " + percent + "% من " + number + "<br>" +
+        "➖ مقدار الخصم: <strong>" + changeAmount + "</strong><br>" +
+        "💰 النتيجة: <strong>" + result + "</strong>";
 }
 }
 </script>
