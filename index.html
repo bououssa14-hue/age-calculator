@@ -128,13 +128,20 @@ function calculateAge() {
         (nextBirthday - today) / (1000 * 60 * 60 * 24)
     );
 
+    let birthdayDate = nextBirthday.toLocaleDateString("ar-DZ", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+});
     document.getElementById("result").innerHTML =
         "🎉 عمرك هو: " +
         years + " سنة و " +
         months + " شهر و " +
         days + " يوم" +
-        "<br><br>🎂 عيد ميلادك القادم بعد: " +
-        daysUntilBirthday + " يوم";
+       "<br><br>🎂 عيد ميلادك القادم: " +
+birthdayDate +
+"<br>⏳ باقي: " +
+daysUntilBirthday + " يوم";
 }
 </script>
 
