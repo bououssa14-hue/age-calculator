@@ -23,7 +23,11 @@
         function calculatePercentage() {
             let number = document.getElementById("number").value;
             let percent = document.getElementById("percent").value;
-
+if (number === "" || percent === "") {
+    document.getElementById("result").innerHTML =
+        "⚠️ أدخل الرقم والنسبة أولاً";
+    return;
+}
             let result = number * percent / 100;
 
           document.getElementById("result").innerHTML =
