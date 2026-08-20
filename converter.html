@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>محول الوحدات 🔄</title>
+
+<style>
+body {
+    text-align: center;
+    font-family: Arial;
+    background-color: #e8f0fe;
+    padding-top: 50px;
+    direction: rtl;
+}
+
+.box {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    width: 350px;
+    margin: auto;
+    padding: 30px;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+input,
+select {
+    padding: 10px;
+    font-size: 17px;
+    margin: 5px;
+    max-width: 250px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 15px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+button:hover {
+    background-color: #357abd;
+}
+
+#result {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 25px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>🔄 محول الوحدات</h1>
+
+<p>اختر نوع التحويل:</p>
+
+<select id="category" onchange="updateUnits()">
+    <option value="length">📏 الطول</option>
+    <option value="weight">⚖️ الكتلة</option>
+    <option value="volume">💧 السعة</option>
+    <option value="temperature">🌡️ الحرارة</option>
+    <option value="time">⏱️ الوقت</option>
+    <option value="data">💾 البيانات</option>
+</select>
+
+<p>أدخل القيمة:</p>
+
+<input type="number" id="value" step="any">
+
+<p>من:</p>
+
+<select id="fromUnit"></select>
+
+<p>إلى:</p>
+
+<select id="toUnit"></select>
+
+<br>
+
+<button onclick="convert()">🔄 تحويل</button>
+
+<p id="result"></p>
+
+</div>
+<script>
+
+const units = {
+    length: {
+        "كيلومتر": 1000,
+        "هيكتومتر": 100,
+        "ديكامتر": 10,
+        "متر": 1,
+        "ديسيمتر": 0.1,
+        "سنتيمتر": 0.01,
+        "مليمتر": 0.001
+    },
+
+    weight: {
+        "طن": 1000,
+        "كيلوجرام": 1,
+        "هيكتوغرام": 0.1,
+        "ديكاغرام": 0.01,
+        "غرام": 0.001,
+        "ديسيغرام": 0.0001,
+        "سنتيغرام": 0.00001,
+        "مليغرام": 0.000001
+    },
+
+    volume: {
+        "كيلولتر": 1000,
+        "هيكتولتر": 100,
+        "ديكالتر": 10,
+        "لتر": 1,
+        "ديسيلتر": 0.1,
+        "سنتيلتر": 0.01,
+        "مليلتر": 0.001
+    },
+
+    time: {
+        "أسبوع": 604800,
+        "يوم": 86400,
+        "ساعة": 3600,
+        "دقيقة": 60,
+        "ثانية": 1,
+        "ميلي ثانية": 0.001
+    },
+
+    data: {
+        "بايت": 1,
+        "كيلوبايت": 1000,
+        "ميغابايت": 1000000,
+        "جيجابايت": 1000000000,
+        "تيرابايت": 1000000000000
+    },
+
+    temperature: {
+        "مئوية °C": "celsius",
+        "فهرنهايت °F": "fahrenheit",
+        "كلفن K": "kelvin"
+    }
+};
+
+function updateUnits() {
+    const category = document.getElementById("category").value;
+    const fromUnit = document.getElementById("fromUnit");
+    const toUnit = document.getElementById("toUnit");
+
+    fromUnit.innerHTML = "";
+    toUnit.innerHTML = "";
+
+    for (let unit in units[category]) {
+        fromUnit.innerHTML += `<option value="${unit}">${unit}</option>`;
+        toUnit.innerHTML += `<option value="${unit}">${unit}</option>`;
+    }
+}
+
+updateUnits();
+  function convert() {
+    const value = document.getElementById("value").value;
+    const category = document.getElementById("category").value;
+    const fromUnit = document.getElementById("fromUnit").value;
+    const toUnit = document.getElementById("toUnit").value;
+    const resultElement = document.getElementById("result");
+
+    if (value === "") {
+        resultElement.innerHTML = "⚠️ أدخل قيمة أولاً";
+        return;
+    }
+
+    const numberValue = parseFloat(value);
+    let result;
+
+    if (category === "temperature") {
+        let celsius;
+
+        if (fromUnit === "مئوية °C") {
+            celsius = numberValue;
+        } else if (fromUnit === "فهرنهايت °F") {
+            celsius = (numberValue - 32) * 5 / 9;
+        } else if (fromUnit === "كلفن K") {
+            celsius = numberValue - 273.15;
+        }
+
+        if (toUnit === "مئوية °C") {
+            result = celsius;
+        } else if (toUnit === "فهرنهايت °F") {
+            result = celsius * 9 / 5 + 32;
+        } else if (toUnit === "كلفن K") {
+            result = celsius + 273.15;
+        }
+
+    } else {
+        result =
+            numberValue *
+            units[category][fromUnit] /
+            units[category][toUnit];
+    }
+
+    result = Number(result.toFixed(10));
+
+    resultElement.innerHTML =
+        "🔄 " + numberValue + " " + fromUnit +
+        " = <strong>" + result + " " + toUnit + "</strong>";
+}
+
+</script>
+
+</body>
+</html>
